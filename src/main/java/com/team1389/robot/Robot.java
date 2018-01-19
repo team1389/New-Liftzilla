@@ -1,50 +1,99 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
 package com.team1389.robot;
-import com.team1389.hardware.outputs.hardware.CANTalonHardware;
-import com.team1389.hardware.outputs.software.PercentOut;
-import com.team1389.hardware.registry.Registry;
-import com.team1389.hardware.registry.port_types.CAN;
+
+import org.usfirst.frc.team1389.operation.TeleopMain;
+
+import com.team1389.auto.AutoModeBase;
+import com.team1389.auto.AutoModeExecuter;
+import com.team1389.robot.watchers.DashboardInput;
+import com.team1389.watch.Watcher;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import jaci.pathfinder.Waypoint;
 
 /**
- * This is a demo program showing the use of the RobotDrive class. The
- * SampleRobot class is the base of a robot application that will automatically
- * call your Autonomous and OperatorControl methods at the right time as
- * controlled by the switches on the driver station or the field controls.
- *
- * <p>The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the SampleRobot
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the IterativeRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties file in the
- * project.
- *
- * <p>WARNING: While it may look like a good choice to use for your code if
- * you're inexperienced, don't. Unless you know what you are doing, complex code
- * will be much more difficult under this system. Use IterativeRobot or
- * Command-Based instead if you're new.
+ * creating this project, you must also update the manifest file in the resource
+ * directory.
  */
-public class Robot extends IterativeRobot 
-	{
-	CANTalonHardware talon = new CANTalonHardware(false, new CAN(8), new Registry());
-	PercentOut setter = talon.getVoltageController();
-	
-	@Override
-	public void robotInit()
-	{
+public class Robot extends IterativeRobot {
+	RobotSoftware robot;
+	TeleopMain teleOperator;
+	AutoModeExecuter autoModeExecuter;
+	Watcher broadWatcher;
 
-	}
+	/**
+	 * This function is run when the robot is first started up and should be
+	 * used for any initialization code.
+	 */
 	@Override
-	public void teleopPeriodic() 
-	{
-		setter.set(.4);
+	public void robotInit() {
+		robot = RobotSoftware.getInstance();
+		teleOperator = new TeleopMain(robot);
+		autoModeExecuter = new AutoModeExecuter();
+		DashboardInput.getInstance().init();
+		robot.threadManager.init();
+	}
+
+	@Override
+	public void autonomousInit() {
+		robot.threadManager.init();
+		autoModeExecuter.stop();
+		AutoModeBase selectedAutonMode = DashboardInput.getInstance().getSelectedAutonMode();
+		autoModeExecuter.setAutoMode(selectedAutonMode);
+		robot.threadManager.borrowThreadToRun(autoModeExecuter);
+		broadWatcher = new Watcher();
+		broadWatcher.watch(selectedAutonMode);
+		broadWatcher.watch(robot.gyro.getAngleInput().getWatchable("angle"));
+		broadWatcher.watch(robot.leftA.getPositionInput().getWatchable("pos"));
+
+		broadWatcher.outputToDashboard();
+		new Waypoint(0, 0, 0);
+	}
+
+	/**
+	 * This function is called periodically during autonomous
+	 */
+	@Override
+	public void autonomousPeriodic() {
+	}
+
+	@Override
+	public void disabledPeriodic() {
+	}
+
+	@Override
+	public void disabledInit() {
+		robot.threadManager.reset();
+		robot.threadManager.borrowThreadToRun(robot.gyro::calibrate);
+	}
+
+	@Override
+	public void teleopInit() {
+		robot.threadManager.init();
+		autoModeExecuter.stop();
+		teleOperator.init();
+	}
+
+	/**
+	 * This function is called periodically during operator control
+	 */
+	@Override
+	public void teleopPeriodic() {
+		teleOperator.periodic();
+	}
+
+	/**
+	 * This function is called periodically during test mode
+	 */
+	@Override
+	public void testInit() {
+	}
+
+	@Override
+	public void testPeriodic() {
 	}
 
 }
