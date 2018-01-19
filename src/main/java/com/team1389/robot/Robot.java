@@ -12,6 +12,7 @@ import com.team1389.hardware.registry.Registry;
 import com.team1389.hardware.registry.port_types.CAN;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This is a demo program showing the use of the RobotDrive class. The
@@ -30,16 +31,20 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * will be much more difficult under this system. Use IterativeRobot or
  * Command-Based instead if you're new.
  */
-public class Robot extends IterativeRobot {
-	CANTalonHardware talon = new CANTalonHardware(false, new CAN(10), new Registry());
+public class Robot extends IterativeRobot 
+	{
+	CANTalonHardware talon = new CANTalonHardware(false, new CAN(8), new Registry());
 	PercentOut setter = talon.getVoltageController();
+	
 	@Override
-	public void robotInit() {
+	public void robotInit()
+	{
 
 	}
 	@Override
-	public void teleopPeriodic() {
-		setter.set(1);
+	public void teleopPeriodic() 
+	{
+		setter.set(.4);
 	}
 
 }
