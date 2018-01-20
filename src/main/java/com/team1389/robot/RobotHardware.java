@@ -3,7 +3,6 @@ package com.team1389.robot;
 import com.team1389.hardware.inputs.hardware.GyroHardware;
 import com.team1389.hardware.inputs.hardware.PDPHardware;
 import com.team1389.hardware.inputs.hardware.SwitchHardware;
-import com.team1389.hardware.outputs.hardware.CANTalonGroup;
 import com.team1389.hardware.outputs.hardware.CANTalonHardware;
 import com.team1389.hardware.outputs.hardware.VictorHardware;
 import com.team1389.hardware.registry.Registry;
@@ -42,12 +41,12 @@ public class RobotHardware extends RobotLayout {
 	}
 
 	private void initDriveTrain() {
-		leftA = new CANTalonHardware(inv_LEFT_MOTOR_A, sinv_LEFT_ENCODER, can_LEFT_MOTOR_A, registry);
-		rightA = new CANTalonHardware(inv_RIGHT_MOTOR_A, sinv_RIGHT_ENCODER, can_RIGHT_MOTOR_A, registry);
-		leftB = new CANTalonHardware(inv_LEFT_MOTOR_B, sinv_ELEVATOR_ENCODER, can_LEFT_MOTOR_B, registry);
+		leftA = new CANTalonHardware(inv_LEFT_MOTOR_A,  can_LEFT_MOTOR_A, registry);
+		rightA = new CANTalonHardware(inv_RIGHT_MOTOR_A,  can_RIGHT_MOTOR_A, registry);
+		leftB = new CANTalonHardware(inv_LEFT_MOTOR_B,  can_LEFT_MOTOR_B, registry);
 		rightB = new CANTalonHardware(inv_RIGHT_MOTOR_B, can_RIGHT_MOTOR_B, registry);
-		leftGroup = new CANTalonGroup(leftA, leftB);
-		rightGroup = new CANTalonGroup(rightA, rightB);
+		
+		
 	}
 
 	public Registry getRegistry() {

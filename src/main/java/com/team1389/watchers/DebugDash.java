@@ -12,12 +12,12 @@ public class DebugDash extends Watcher {
 		return instance;
 	}
 
-	@Override
+	/*@Override
 	public void publish(ITable table) {
 		if (IS_DEBUGGING) {
 			super.publish(table);
 		}
-	}
+	}*/
 
 	public void display() {
 		publish(Watcher.DASHBOARD);

@@ -1,9 +1,8 @@
 package com.team1389.operation;
 
-import org.usfirst.frc.team1389.robot.RobotSoftware;
-import org.usfirst.frc.team1389.robot.controls.ControlBoard;
-
+import com.team1389.hardware.controls.ControlBoard;
 import com.team1389.hardware.inputs.software.DigitalIn;
+import com.team1389.robot.RobotSoftware;
 import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
 import com.team1389.system.drive.CurvatureDriveSystem;
@@ -26,10 +25,10 @@ public class TeleopMain {
 		watcher = new Watcher();
 		controls = ControlBoard.getInstance();
 		Subsystem driveSystem = setUpDriveSystem();
-		Subsystem elevator = setupComplexElevator();
-		manager = new SystemManager(elevator, driveSystem);
+		//Subsystem elevator = setupComplexElevator();
+		manager = new SystemManager( driveSystem);
 		manager.init();
-		watcher.watch(elevator, driveSystem, robot.topSwitch, robot.bottomSwitch);
+		watcher.watch(driveSystem, robot.topSwitch, robot.bottomSwitch);
 		watcher.outputToDashboard();
 
 	}
@@ -39,10 +38,10 @@ public class TeleopMain {
 	}
 
 	public Subsystem setUpDriveSystem() {
-		return new CurvatureDriveSystem(robot.drive, controls.throttle, controls.wheel, controls.quickTurn);
+		return new CurvatureDriveSystem(robot.drive, controls.driveYAxis(), controls.driveXAxis(), controls.driveModifierBtn());
 	}
 
-	private Subsystem setupComplexElevator() {
+	/*private Subsystem setupComplexElevator() {
 		DigitalIn topSwitchTriggered = robot.topSwitch.getSwitchInput().invert();
 		DigitalIn bottomSwitchTriggered = robot.bottomSwitch.getSwitchInput();
 		ButtonEnumMap<Height> buttonMap = new ButtonEnumMap<>(Height.BOTTOM);
@@ -51,6 +50,6 @@ public class TeleopMain {
 				buttonMap.new ButtonEnum(controls.elevatorTwo, Height.TWO_TOTE));
 		return new Elevator(robot.elevatorVoltage, robot.elevatorSpeedIn, robot.elevatorPositionIn, topSwitchTriggered,
 				bottomSwitchTriggered, controls.elevatorZero, buttonMap);
-	}
+	}*/
 
 }

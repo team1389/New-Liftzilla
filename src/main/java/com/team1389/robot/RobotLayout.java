@@ -3,7 +3,6 @@ package com.team1389.robot;
 import com.team1389.hardware.inputs.hardware.GyroHardware;
 import com.team1389.hardware.inputs.hardware.PDPHardware;
 import com.team1389.hardware.inputs.hardware.SwitchHardware;
-import com.team1389.hardware.outputs.hardware.CANTalonGroup;
 import com.team1389.hardware.outputs.hardware.CANTalonHardware;
 import com.team1389.hardware.outputs.hardware.VictorHardware;
 import com.team1389.hardware.registry.Registry;
@@ -23,8 +22,7 @@ public class RobotLayout extends RobotMap {
 	public CANTalonHardware rightA;
 	public CANTalonHardware leftB;
 	public CANTalonHardware rightB;
-	public CANTalonGroup leftGroup;
-	public CANTalonGroup rightGroup;
+
 	public GyroHardware<SPIPort> gyro;
 
 	public VictorHardware elevatorA;

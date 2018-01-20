@@ -1,7 +1,5 @@
 package com.team1389.systems;
 
-import org.usfirst.frc.team1389.robot.RobotConstants;
-
 import com.team1389.command_framework.CommandUtil;
 import com.team1389.command_framework.command_base.Command;
 import com.team1389.control.SmoothSetController;
@@ -13,6 +11,7 @@ import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
+import com.team1389.robot.RobotConstants;
 import com.team1389.system.Subsystem;
 import com.team1389.util.ButtonEnumMap;
 import com.team1389.util.list.AddList;

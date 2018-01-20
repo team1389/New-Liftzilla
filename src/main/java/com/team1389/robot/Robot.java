@@ -1,15 +1,11 @@
 
 package com.team1389.robot;
 
-import org.usfirst.frc.team1389.operation.TeleopMain;
-
-import com.team1389.auto.AutoModeBase;
 import com.team1389.auto.AutoModeExecuter;
-import com.team1389.robot.watchers.DashboardInput;
+import com.team1389.operation.TeleopMain;
 import com.team1389.watch.Watcher;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import jaci.pathfinder.Waypoint;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,24 +29,14 @@ public class Robot extends IterativeRobot {
 		robot = RobotSoftware.getInstance();
 		teleOperator = new TeleopMain(robot);
 		autoModeExecuter = new AutoModeExecuter();
-		DashboardInput.getInstance().init();
-		robot.threadManager.init();
 	}
 
 	@Override
 	public void autonomousInit() {
-		robot.threadManager.init();
 		autoModeExecuter.stop();
-		AutoModeBase selectedAutonMode = DashboardInput.getInstance().getSelectedAutonMode();
-		autoModeExecuter.setAutoMode(selectedAutonMode);
-		robot.threadManager.borrowThreadToRun(autoModeExecuter);
-		broadWatcher = new Watcher();
-		broadWatcher.watch(selectedAutonMode);
-		broadWatcher.watch(robot.gyro.getAngleInput().getWatchable("angle"));
-		broadWatcher.watch(robot.leftA.getPositionInput().getWatchable("pos"));
+	
 
 		broadWatcher.outputToDashboard();
-		new Waypoint(0, 0, 0);
 	}
 
 	/**
@@ -66,13 +52,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
-		robot.threadManager.reset();
-		robot.threadManager.borrowThreadToRun(robot.gyro::calibrate);
+	
 	}
 
 	@Override
 	public void teleopInit() {
-		robot.threadManager.init();
 		autoModeExecuter.stop();
 		teleOperator.init();
 	}
