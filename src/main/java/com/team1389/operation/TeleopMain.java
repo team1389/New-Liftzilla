@@ -1,14 +1,14 @@
 package com.team1389.operation;
 
 import com.team1389.hardware.controls.ControlBoard;
-import com.team1389.hardware.inputs.software.DigitalIn;
+//import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.robot.RobotSoftware;
 import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
 import com.team1389.system.drive.CurvatureDriveSystem;
-import com.team1389.systems.Elevator;
-import com.team1389.systems.Elevator.Height;
-import com.team1389.util.ButtonEnumMap;
+//import com.team1389.systems.Elevator;
+//import com.team1389.systems.Elevator.Height;
+//import com.team1389.util.ButtonEnumMap;
 import com.team1389.watch.Watcher;
 
 public class TeleopMain {
