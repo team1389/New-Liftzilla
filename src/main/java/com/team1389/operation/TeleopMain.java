@@ -8,48 +8,66 @@ import com.team1389.system.SystemManager;
 import com.team1389.system.drive.CurvatureDriveSystem;
 import com.team1389.systems.Elevator;
 import com.team1389.systems.Elevator.Height;
+import com.team1389.systems.VoltageElevator;
 import com.team1389.util.ButtonEnumMap;
 import com.team1389.watch.Watcher;
 
-public class TeleopMain {
+public class TeleopMain
+{
 	SystemManager manager;
 	ControlBoard controls;
 	RobotSoftware robot;
 	Watcher watcher;
 
-	public TeleopMain(RobotSoftware robot) {
+	public TeleopMain(RobotSoftware robot)
+	{
 		this.robot = robot;
 	}
 
-	public void init() {
+	public void init()
+	{
 		watcher = new Watcher();
 		controls = ControlBoard.getInstance();
 		Subsystem driveSystem = setUpDriveSystem();
-		//Subsystem elevator = setupComplexElevator();
-		manager = new SystemManager( driveSystem);
+		Subsystem elevator = setUpElevatorSystem();
+		// Subsystem elevator = setupComplexElevator();
+		manager = new SystemManager(driveSystem, elevator);
 		manager.init();
 		watcher.watch(driveSystem, robot.topSwitch, robot.bottomSwitch);
 		watcher.outputToDashboard();
 
 	}
 
-	public void periodic() {
+	public void periodic()
+	{
 		manager.update();
 	}
 
-	public Subsystem setUpDriveSystem() {
-		return new CurvatureDriveSystem(robot.drive, controls.driveYAxis(), controls.driveXAxis(), controls.driveModifierBtn());
+	public Subsystem setUpDriveSystem()
+	{
+		return new CurvatureDriveSystem(robot.drive, controls.leftStickYAxis().invert(), controls.rightStickXAxis(),
+				controls.rightBumper());
+		//return new CurvatureDriveSystem(robot.drive, controls.driveYAxis(), controls.driveXAxis(),
+			//	controls.driveModifierBtn());
 	}
+	
 
-	/*private Subsystem setupComplexElevator() {
-		DigitalIn topSwitchTriggered = robot.topSwitch.getSwitchInput().invert();
-		DigitalIn bottomSwitchTriggered = robot.bottomSwitch.getSwitchInput();
-		ButtonEnumMap<Height> buttonMap = new ButtonEnumMap<>(Height.BOTTOM);
-		buttonMap.setMappings(buttonMap.new ButtonEnum(controls.elevatorDown, Height.BOTTOM),
-				buttonMap.new ButtonEnum(controls.elevatorOne, Height.ONE_TOTE),
-				buttonMap.new ButtonEnum(controls.elevatorTwo, Height.TWO_TOTE));
-		return new Elevator(robot.elevatorVoltage, robot.elevatorSpeedIn, robot.elevatorPositionIn, topSwitchTriggered,
-				bottomSwitchTriggered, controls.elevatorZero, buttonMap);
-	}*/
+	public Subsystem setUpElevatorSystem()
+	{
+		return new VoltageElevator(robot.elevatorVoltage, controls.leftStickYAxis(), robot.elevatorSpeedIn,
+				robot.elevatorPositionIn);
+	}
+	/*
+	 * private Subsystem setupComplexElevator() { DigitalIn topSwitchTriggered =
+	 * robot.topSwitch.getSwitchInput().invert(); DigitalIn
+	 * bottomSwitchTriggered = robot.bottomSwitch.getSwitchInput();
+	 * ButtonEnumMap<Height> buttonMap = new ButtonEnumMap<>(Height.BOTTOM);
+	 * buttonMap.setMappings(buttonMap.new ButtonEnum(controls.elevatorDown,
+	 * Height.BOTTOM), buttonMap.new ButtonEnum(controls.elevatorOne,
+	 * Height.ONE_TOTE), buttonMap.new ButtonEnum(controls.elevatorTwo,
+	 * Height.TWO_TOTE)); return new Elevator(robot.elevatorVoltage,
+	 * robot.elevatorSpeedIn, robot.elevatorPositionIn, topSwitchTriggered,
+	 * bottomSwitchTriggered, controls.elevatorZero, buttonMap); }
+	 */
 
 }
