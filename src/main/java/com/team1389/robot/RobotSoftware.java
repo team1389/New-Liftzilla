@@ -2,11 +2,15 @@ package com.team1389.robot;
 
 import java.util.function.Function;
 
+import com.team1389.configuration.PIDConstants;
+import com.team1389.control.PIDController;
+import com.team1389.control.SynchronousPIDController;
 import com.team1389.hardware.inputs.software.AngleIn;
 import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.RangeIn;
 import com.team1389.hardware.outputs.software.DigitalOut;
 import com.team1389.hardware.outputs.software.PercentOut;
+import com.team1389.hardware.value_types.PIDTunableValue;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
@@ -31,6 +35,8 @@ public class RobotSoftware extends RobotHardware
 	public RangeIn<Value> armCurrent;
 	public DigitalIn gearBeamBreak;
 	public PercentOut climberVoltage;
+	public SynchronousPIDController<Percent, Position> pid;
+	public PIDConstants constants;
 
 	public static RobotSoftware getInstance()
 	{
