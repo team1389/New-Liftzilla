@@ -1,46 +1,58 @@
 package com.team1389.robot;
 
-import com.team1389.hardware.inputs.software.PositionEncoderIn;
+import java.util.function.Function;
+
+import com.team1389.hardware.inputs.software.AngleIn;
+import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.hardware.inputs.software.RangeIn;
+import com.team1389.hardware.outputs.software.DigitalOut;
 import com.team1389.hardware.outputs.software.PercentOut;
-import com.team1389.hardware.outputs.software.RangeOut;
 import com.team1389.hardware.value_types.Percent;
 import com.team1389.hardware.value_types.Position;
 import com.team1389.hardware.value_types.Speed;
-import com.team1389.system.drive.DriveOut;
+import com.team1389.hardware.value_types.Value;
+import com.team1389.system.drive.FourDriveOut;
 
-public class RobotSoftware extends RobotHardware {
+public class RobotSoftware extends RobotHardware
+{
 	private static RobotSoftware INSTANCE = new RobotSoftware();
-	public final RangeOut<Percent> right = rightA.getVoltageController().addFollowers(leftB.getVoltageController()).scale(0.25);
-	public final RangeOut<Percent> left = leftA.getVoltageController().addFollowers(leftB.getVoltageController()).scale(0.25);
-	public final DriveOut<Percent> drive = new DriveOut<Percent>(leftA.getVoltageController(),
-			rightA.getVoltageController());
-	public final RangeIn<Position> elevatorPositionIn = rightB.getSensorPositionStream();
-	public final RangeIn<Speed> elevatorSpeedIn = rightB.getVelocityStream();
-	public final PercentOut elevatorVoltage = elevatorA.getVoltageOutput()
-			.addFollowers(elevatorB.getVoltageOutput().invert());
-	// public AngleIn<Position> angle;
-	// public RobotStateEstimator state;
+	public AngleIn<Position> gyroInput;
+	public DigitalOut pistons;
+	public FourDriveOut<Percent> voltageDrive;
+	public FourDriveOut<Percent> compensatedDrive;
+	public AngleIn<Position> armAngle;
+	public AngleIn<Position> armAngleNoOffset;
+	public AngleIn<Speed> armVel;
+	public RobotHardware hardware;
+	public RangeIn<Value> gearIntakeCurrent;
+	public RangeIn<Position> flPos, frPos;
+	public DigitalIn timeRunning;
+	public RangeIn<Value> flCurrent, frCurrent, blCurrent, brCurrent;
+	public RangeIn<Value> armCurrent;
+	public DigitalIn gearBeamBreak;
+	public PercentOut climberVoltage;
 
-	/*
-	 * public RobotStateEstimator setupRobotStateEstimator() { RangeIn<Position>
-	 * left = leftA.getPositionInput().setRange(0, 1440).mapToRange(0, Math.PI *
-	 * RobotConstants.WheelDiameter); RangeIn<Position> right =
-	 * rightA.getPositionInput().setRange(0, 1440).mapToRange(0, Math.PI *
-	 * RobotConstants.WheelDiameter); RangeIn<Speed> leftS =
-	 * leftA.getSpeedInput().setRange(0, 1440).mapToRange(0, Math.PI * 4);
-	 * RangeIn<Speed> rightS = rightA.getSpeedInput().setRange(0,
-	 * 1440).mapToRange(0, Math.PI * 4); AngleIn<Position> gyro = angle; return new
-	 * RobotStateEstimator(new RobotState(), left, right, leftS, rightS, gyro,
-	 * RobotConstants.TrackWidth, RobotConstants.TrackLength,
-	 * RobotConstants.TrackScrub); }
-	 */
-	public static RobotSoftware getInstance() {
+	public static RobotSoftware getInstance()
+	{
 		return INSTANCE;
 	}
 
-	public RobotSoftware() {
-		PositionEncoderIn.setGlobalWheelDiameter(RobotConstants.WheelDiameter);
+	public RobotSoftware()
+	{
+		hardware = new RobotHardware();
+		
+		/*
+		 * flCurrent = pdp.getCurrentIn(pdp_FRONT_LEFT_CURRENT); frCurrent =
+		 * pdp.getCurrentIn(pdp_FRONT_RIGHT_CURRENT); blCurrent =
+		 * pdp.getCurrentIn(pdp_REAR_LEFT_CURRENT); brCurrent =
+		 * pdp.getCurrentIn(pdp_REAR_RIGHT_CURRENT);
+		 */
+		
+	}
+
+	public void zeroAngle()
+	{
+		
 	}
 
 }
