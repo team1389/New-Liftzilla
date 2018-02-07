@@ -31,9 +31,9 @@ public class TeleopMain
 		Subsystem driveSystem = setUpDriveSystem();
 		Subsystem elevator = setUpElevatorSystem();
 		// Subsystem elevator = setupComplexElevator();
-		manager = new SystemManager(driveSystem, elevator);
+		manager = new SystemManager(driveSystem);
 		manager.init();
-		watcher.watch(driveSystem, robot.topSwitch, robot.bottomSwitch);
+		watcher.watch();
 		watcher.outputToDashboard();
 
 	}
@@ -47,10 +47,10 @@ public class TeleopMain
 	{
 		return new CurvatureDriveSystem(robot.drive, controls.leftStickYAxis().invert(), controls.rightStickXAxis(),
 				controls.rightBumper());
-		//return new CurvatureDriveSystem(robot.drive, controls.driveYAxis(), controls.driveXAxis(),
-			//	controls.driveModifierBtn());
+		// return new CurvatureDriveSystem(robot.drive, controls.driveYAxis(),
+		// controls.driveXAxis(),
+		// controls.driveModifierBtn());
 	}
-	
 
 	public Subsystem setUpElevatorSystem()
 	{

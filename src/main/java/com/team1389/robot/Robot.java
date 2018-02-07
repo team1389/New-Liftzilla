@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot
+{
 	RobotSoftware robot;
 	TeleopMain teleOperator;
 	AutoModeExecuter autoModeExecuter;
@@ -25,38 +26,45 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	@Override
-	public void robotInit() {
+	public void robotInit()
+	{
 		robot = RobotSoftware.getInstance();
 		teleOperator = new TeleopMain(robot);
 		autoModeExecuter = new AutoModeExecuter();
 	}
 
 	@Override
-	public void autonomousInit() {
+	public void autonomousInit()
+	{
 		autoModeExecuter.stop();
-	
 
-		broadWatcher.outputToDashboard();
 	}
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	@Override
-	public void autonomousPeriodic() {
+	public void autonomousPeriodic()
+	{
+		robot.leftA.getVoltageController().set(.25);
+		robot.rightA.getVoltageController().set(.25);
+
 	}
 
 	@Override
-	public void disabledPeriodic() {
+	public void disabledPeriodic()
+	{
 	}
 
 	@Override
-	public void disabledInit() {
-	
+	public void disabledInit()
+	{
+
 	}
 
 	@Override
-	public void teleopInit() {
+	public void teleopInit()
+	{
 		autoModeExecuter.stop();
 		teleOperator.init();
 	}
@@ -65,7 +73,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	@Override
-	public void teleopPeriodic() {
+	public void teleopPeriodic()
+	{
 		teleOperator.periodic();
 	}
 
@@ -73,11 +82,13 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during test mode
 	 */
 	@Override
-	public void testInit() {
+	public void testInit()
+	{
 	}
 
 	@Override
-	public void testPeriodic() {
+	public void testPeriodic()
+	{
 	}
 
 }
