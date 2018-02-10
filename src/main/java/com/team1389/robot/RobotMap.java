@@ -28,11 +28,12 @@ public class RobotMap {
 
 	// Drivetrain
 	protected static final CAN can_LEFT_MOTOR_A = new CAN(10);
-	protected static final boolean inv_LEFT_MOTOR_A = false;
-	protected static final CAN can_LEFT_MOTOR_B = new CAN(0);
+	protected static final boolean inv_LEFT_MOTOR_A = true;
+	protected static final CAN can_LEFT_MOTOR_B = new CAN(8);
 	protected static final boolean inv_LEFT_MOTOR_B = true;
-	protected static final CAN can_RIGHT_MOTOR_A = new CAN(6);
-	protected static final boolean inv_RIGHT_MOTOR_A = true;
+	//plugged into elev
+	protected static final CAN can_RIGHT_MOTOR_A = new CAN(12);
+	protected static final boolean inv_RIGHT_MOTOR_A = false;
 	protected static final CAN can_RIGHT_MOTOR_B = new CAN(7);
 	protected static final boolean inv_RIGHT_MOTOR_B = true;
 

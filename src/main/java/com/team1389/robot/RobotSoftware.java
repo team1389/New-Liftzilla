@@ -11,8 +11,8 @@ import com.team1389.system.drive.DriveOut;
 
 public class RobotSoftware extends RobotHardware {
 	private static RobotSoftware INSTANCE = new RobotSoftware();
-	public final RangeOut<Percent> right = rightA.getVoltageController().addFollowers(leftB.getVoltageController());
-	public final RangeOut<Percent> left = leftA.getVoltageController().addFollowers(leftB.getVoltageController());
+	//public final RangeOut<Percent> right = rightA.getVoltageController().addFollowers(leftB.getVoltageController());
+	//public final RangeOut<Percent> left = leftA.getVoltageController().addFollowers(leftB.getVoltageController());
 	public final DriveOut<Percent> drive = new DriveOut<Percent>(leftA.getVoltageController(),
 			rightA.getVoltageController());
 	public final RangeIn<Position> elevatorPositionIn = rightB.getSensorPositionStream();

@@ -2,6 +2,7 @@
 package com.team1389.robot;
 
 import com.team1389.auto.AutoModeExecuter;
+import com.team1389.hardware.controls.ControlBoard;
 import com.team1389.operation.TeleopMain;
 import com.team1389.watch.Watcher;
 
@@ -20,6 +21,7 @@ public class Robot extends IterativeRobot
 	TeleopMain teleOperator;
 	AutoModeExecuter autoModeExecuter;
 	Watcher broadWatcher;
+	ControlBoard controls;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -31,6 +33,10 @@ public class Robot extends IterativeRobot
 		robot = RobotSoftware.getInstance();
 		teleOperator = new TeleopMain(robot);
 		autoModeExecuter = new AutoModeExecuter();
+		controls = ControlBoard.getInstance();
+		broadWatcher = new Watcher();
+		broadWatcher.watch(controls.xDriveX().getWatchable("x drive x"), controls.xDriveY().getWatchable("x drive y"));
+		broadWatcher.outputToDashboard();
 	}
 
 	@Override
@@ -75,6 +81,8 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
+		
+		Watcher.update();
 		teleOperator.periodic();
 	}
 
