@@ -1,14 +1,12 @@
 package com.team1389.operation;
 
+import java.net.NetworkInterface;
+
+import com.team1389.auto.paths.SwitchPosOne;
 import com.team1389.hardware.controls.ControlBoard;
-import com.team1389.hardware.inputs.software.DigitalIn;
 import com.team1389.robot.RobotSoftware;
 import com.team1389.system.Subsystem;
 import com.team1389.system.SystemManager;
-import com.team1389.system.drive.CurvatureDriveSystem;
-import com.team1389.systems.Elevator;
-import com.team1389.systems.Elevator.Height;
-import com.team1389.util.ButtonEnumMap;
 import com.team1389.watch.Watcher;
 
 public class TeleopMain {
@@ -28,7 +26,7 @@ public class TeleopMain {
 		//Subsystem elevator = setupComplexElevator();
 		manager = new SystemManager( driveSystem);
 		manager.init();
-		watcher.watch(driveSystem, robot.topSwitch, robot.bottomSwitch);
+		watcher.watch(driveSystem);
 		watcher.outputToDashboard();
 
 	}
@@ -38,7 +36,7 @@ public class TeleopMain {
 	}
 
 	public Subsystem setUpDriveSystem() {
-		return new CurvatureDriveSystem(robot.drive, controls.driveYAxis(), controls.driveXAxis(), controls.driveModifierBtn());
+		return null;
 	}
 
 	/*private Subsystem setupComplexElevator() {
