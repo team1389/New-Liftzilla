@@ -6,41 +6,38 @@ import com.team1389.autos.AutoConstants;
 import com.team1389.autos.commands.RobotCommands;
 import com.team1389.autos.commands.RobotCommands.DriveStraight;
 import com.team1389.autos.commands.RobotCommands.TurnAngle;
+import com.team1389.command_framework.command_base.Command;
 import com.team1389.robot.RobotSoftware;
 import com.team1389.util.list.AddList;
 import com.team1389.watch.Watchable;
 
-public class AutoPathScaleTwo extends AutoModeBase
+public class AutoTest extends AutoModeBase
 {
 	RobotSoftware robot;
 	DriveStraight drive;
 	TurnAngle turn;
 	RobotCommands commands;
 	
-	public AutoPathScaleTwo(RobotSoftware robot)
+	public AutoTest(RobotSoftware robot) 
 	{
 		this.robot = robot;
 	}
-
 	@Override
 	public AddList<Watchable> getSubWatchables(AddList<Watchable> arg0) 
 	{
-		return null;
+		return arg0;
 	}
 
 	@Override
 	public String getIdentifier() 
 	{
-		return null;
+		return "Test Auto Running";
 	}
 
 	@Override
 	protected void routine() throws AutoModeEndedException 
 	{
-		runCommand(commands.new DriveStraight(AutoConstants.getRotations(AutoConstants.SCALE_TWO_DIS)));
-		runCommand(commands.new TurnAngle(AutoConstants.SCALE_TWO_TURN_ANGLE, AutoConstants.SCALE_TWO_ABSOLUTE));
-		runCommand(commands.new DriveStraight(AutoConstants.getRotations(AutoConstants.SCALE_TWO_DIS_TWO)));
-		runCommand(commands.new TurnAngle(AutoConstants.SCALE_TWO_TURN_ANGLE_TWO, AutoConstants.SCALE_TWO_ABSOLUTE_TWO));
-		runCommand(commands.new DriveStraight(AutoConstants.getRotations(AutoConstants.SCALE_TWO_DIS_THREE)));
+		runCommand(commands.new DriveStraight(AutoConstants.getRotations(AutoConstants.AUTO_TEST_DIS), 2));
+		runCommand(commands.new TurnAngle(AutoConstants.AUTO_TEST_TURN_ANGLE, AutoConstants.AUTO_TEST_ABSOLUTE));
 	}
 }

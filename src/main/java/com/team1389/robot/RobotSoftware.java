@@ -16,6 +16,8 @@ public class RobotSoftware extends RobotHardware{
 	public final RangeOut<Percent> right;
 	public final RangeIn<Position> leftPos;
 	public final RangeIn<Position> rightPos;
+	//public final RangeIn<Position> flPos;
+	//public final RangeIn<Position> frPos;
 	public AngleIn<Position> gyroInput;
 	
 	public static RobotSoftware getInstance()
@@ -32,5 +34,10 @@ public class RobotSoftware extends RobotHardware{
 		leftPos = leftA.getSensorPositionStream();
 		rightPos = rightA.getSensorPositionStream();
 		gyroInput = gyro.getAngleInput();
+		
+		//Function<PositionEncoderIn, RangeIn<Position>> posFunc = e -> e.adjustRange(0, 1024, 0, 1).scale(18.0 / 16.0);
+		
+		//flPos = posFunc.apply(leftA.getSensorPositionStream());
+		//frPos = posFunc.apply(rightA.getPositionInput());
 	}
 }

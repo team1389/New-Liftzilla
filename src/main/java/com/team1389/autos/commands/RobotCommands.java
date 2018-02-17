@@ -29,7 +29,7 @@ public class RobotCommands
 		public DriveStraight(double distance, double speed)
 		{
 			super(new PIDConstants(1, .03, .02), new PIDConstants(0, 0, .0), robot.drive.getAsTank(),
-					robot.rightPos, robot.leftPos, robot.gyroInput.copy().invert(), distance, 2, 2, speed, .05);
+					robot.leftPos, robot.rightPos, robot.gyroInput.copy().invert(), distance, 2, 2, speed, .05);
 		}
 	}
 

@@ -1,8 +1,5 @@
 package com.team1389.operation;
 
-import java.net.NetworkInterface;
-
-import com.team1389.auto.paths.SwitchPosOne;
 import com.team1389.hardware.controls.ControlBoard;
 import com.team1389.robot.RobotSoftware;
 import com.team1389.system.Subsystem;
@@ -24,15 +21,15 @@ public class TeleopMain {
 		controls = ControlBoard.getInstance();
 		Subsystem driveSystem = setUpDriveSystem();
 		//Subsystem elevator = setupComplexElevator();
-		manager = new SystemManager( driveSystem);
-		manager.init();
-		watcher.watch(driveSystem);
-		watcher.outputToDashboard();
+		//manager = new SystemManager( driveSystem);
+		//manager.init();
+		//watcher.watch(driveSystem);
+		//watcher.outputToDashboard();
 
 	}
 
 	public void periodic() {
-		manager.update();
+		//manager.update();
 	}
 
 	public Subsystem setUpDriveSystem() {
